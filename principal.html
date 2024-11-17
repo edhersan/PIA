@@ -134,7 +134,7 @@
                         </div>
                         <div id="menu1" class="container tab-pane fade"><br>
                             <h3>TIENDAS</h3>
-                            
+                            <div id="tiendas-container"></div>
                         </div>
                         <div id="menu2" class="container tab-pane fade"><br>
                             <h3>PRODUCTOS</h3>
@@ -154,6 +154,33 @@
             </div>
         </div>
     </div>
+    <script>
+        async function obtenerTiendas() {
+            try {
+                const respuesta = await fetch('http://localhost:3000/tiendas');
+                if (!respuesta.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                const tiendas = await respuesta.json();
+                const contenedorTiendas = document.getElementById('tiendas-container');
+
+                tiendas.forEach(tienda => {
+                    const tiendaDiv = document.createElement('div');
+                    tiendaDiv.classList.add('tienda');
+                    tiendaDiv.innerHTML = `
+                        <h4>${tienda.Nombre}</h4>
+                        <p>Actividad: ${tienda.actividad}</p>
+                        <p>Dirección: ${tienda.direccion}</p>
+                    `;
+                    contenedorTiendas.appendChild(tiendaDiv);
+                });
+            } catch (error) {
+                console.error('Error al obtener las tiendas:', error);
+            }
+        }
+
+        obtenerTiendas();
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
