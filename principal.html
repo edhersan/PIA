@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Barrio en la Web</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <style>
         body {
             background-color: #ffffff;
@@ -29,7 +29,7 @@
         }
         .carousel-inner img {
             width: 100%;
-            height: 100%;
+            height: auto; /* Ajuste de la altura proporcional */
         }
         .carousel-inner {
             max-height: 600px;
@@ -67,14 +67,14 @@
     <div class="container-fluid">
         <div class="row header align-items-center">
             <div class="col-md-9 d-flex align-items-center logo">
-                <img src="./imagenes/logo.png" alt="Logo">
+                <img src="./imagenes/logo.png" alt="Logo" />
                 <span>EL BARRIO<br> EN<br> LA WEB</span>
             </div>
             <div class="col-md-3 text-right">
-                <form class="form-inline" action="/action_page.php">
-                    <img src="./imagenes/iconos/busqueda.png" alt="logo">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-light" type="submit">Search</button>
+                <form class="form-inline" onsubmit="event.preventDefault(); window.location.href = 'resultados.html?query=' + document.getElementById('search-input').value;">
+                    <img src="./imagenes/iconos/busqueda.png" alt="Buscar" />
+                    <input id="search-input" class="form-control mr-sm-2" type="text" placeholder="Buscar" />
+                    <button class="btn btn-light" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
@@ -108,19 +108,19 @@
                                 <!-- slide -->
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="./imagenes/inicio/mercado.jpg" alt="mercado" width="1100" height="50">
+                                        <img src="./imagenes/inicio/mercado.jpg" alt="Mercado" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="./imagenes/inicio/papeleria.jpg" alt="paleleria" width="1100" height="50">
+                                        <img src="./imagenes/inicio/papeleria.jpg" alt="Papelería" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="./imagenes/inicio/perfume.jpeg" alt="perfume" width="1100" height="50">
+                                        <img src="./imagenes/inicio/perfume.jpeg" alt="Perfume" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="./imagenes/inicio/licores.jpg" alt="Licores" width="1100" height="50">
+                                        <img src="./imagenes/inicio/licores.jpg" alt="Licores" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="./imagenes/inicio/farmacia.jpg" alt="Farmacia" width="1100" height="50">
+                                        <img src="./imagenes/inicio/farmacia.jpg" alt="Farmacia" class="d-block w-100">
                                     </div>
                                 </div>
                                 <!-- controles -->
@@ -144,17 +144,21 @@
                 </div>
             </div>
             <div class="col-2 sidebar">
-                <img src="./imagenes/ejemplos/ejemplo1.jpg" alt="Imagen 1">
-                <p>Aqui podras consultar si los productos estan disponibles y en que tienda cercana, para que puedas ir directamente, sin tener que estar dando vueltas!</p>
-                <img src="./imagenes/ejemplos/ejemplo3.jpg" alt="Imagen 2">
+                <img src="./imagenes/ejemplos/ejemplo1.jpg" alt="Imagen 1" />
+                <p>Aquí podrás consultar si los productos están disponibles y en qué tienda cercana, para que puedas ir directamente, sin tener que estar dando vueltas.</p>
+                <img src="./imagenes/ejemplos/ejemplo3.jpg" alt="Imagen 2" />
             </div>
         </div>
         <div class="row">
             <div class="col-12 footer">
-                <p>conectando con mi comunidad</p>
+                <p>Conectando con mi comunidad</p>
             </div>
         </div>
     </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Usar la versión completa de jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         async function obtenerTiendas() {
             try {
@@ -180,9 +184,6 @@
             }
         }
 
-        obtenerTiendas();
-    </script>
-    <script>
         async function obtenerProductos() {
             try {
                 const respuesta = await fetch('http://localhost:3000/productos');
@@ -208,10 +209,8 @@
             }
         }
 
+        obtenerTiendas();
         obtenerProductos();
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
