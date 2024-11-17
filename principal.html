@@ -138,6 +138,7 @@
                         </div>
                         <div id="menu2" class="container tab-pane fade"><br>
                             <h3>PRODUCTOS</h3>
+                            <div id="productos-container"></div>
                         </div>
                     </div>
                 </div>
@@ -180,6 +181,34 @@
         }
 
         obtenerTiendas();
+    </script>
+    <script>
+        async function obtenerProductos() {
+            try {
+                const respuesta = await fetch('http://localhost:3000/productos');
+                if (!respuesta.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                const productos = await respuesta.json();
+                const contenedorProductos = document.getElementById('productos-container');
+
+                productos.forEach(producto => {
+                    const productoDiv = document.createElement('div');
+                    productoDiv.classList.add('producto');
+                    productoDiv.innerHTML = `
+                        <h4>${producto.nombre}</h4>
+                        <p>Tienda: ${producto.tienda}</p>
+                        <p>Precio: ${producto.precio}</p>
+                        <p>Disponible: ${producto.disponible}</p>
+                    `;
+                    contenedorProductos.appendChild(productoDiv);
+                });
+            } catch (error) {
+                console.error('Error al obtener los productos:', error);
+            }
+        }
+
+        obtenerProductos();
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
